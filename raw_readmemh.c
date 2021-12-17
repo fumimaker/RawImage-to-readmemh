@@ -3,14 +3,16 @@
 #define HEIGHT  96
 #define WIDTH   96
 #define DEPTH   3
+static const unsigned char inputname[] = "kao_9696.raw";
+static const unsigned char outputname[] = "testbin_image.txt";
 
 int main(void){
     FILE *fp = NULL;
     FILE *outfp = NULL;
     unsigned char mem[HEIGHT * WIDTH * DEPTH];
 
-    fp = fopen("kao_9696.raw", "rb");
-    outfp = fopen("testbin_image.txt", "w");
+    fp = fopen(inputname, "rb");
+    outfp = fopen("output_image.txt", "w");
 
     if(fp==NULL||outfp==NULL){
         printf("no file.\n");
