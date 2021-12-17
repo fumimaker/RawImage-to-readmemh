@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#define HEIGHT  16
-#define WIDTH   16
+#define HEIGHT  96
+#define WIDTH   96
 #define DEPTH   3
-static const unsigned char inputname[] = "renzoku.txt";
+static const unsigned char inputname[] = "kao_9696.raw";
 static const unsigned char outputname[] = "output_macroblock.txt";
 
 int main(void){
@@ -28,14 +28,14 @@ int main(void){
             printf("%d block_x, %d block_y\n",block_x, block_y);
             for(int y=0; y<8; y++){
                 for(int x=0; x<8; x++){
-                    int addr = 
-                    ((x+block_x*8) + (y*WIDTH + HEIGHT*8*block_y)) * DEPTH;
+                    int addr = ((x+block_x*8) + (y*WIDTH + HEIGHT*8*block_y)) * DEPTH;
 
                     for(int i=0; i<DEPTH; i++){
                         fprintf(outfp, "%02x", mem[addr+i]);
+                        printf("%02x", mem[addr+i]);
                     }
+                    printf(" ");
                     fprintf(outfp, "\n");
-                    //printf("%02x ", mem[addr]);
                 }
                 printf("\n");
             }
