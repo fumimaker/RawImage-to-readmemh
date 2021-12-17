@@ -19,12 +19,14 @@ int main(void){
 
     fread(mem, sizeof(unsigned char), sizeof(mem)/sizeof(mem[0]), fp);
     for(int i=0; i<HEIGHT*WIDTH; i++){
+        if(i!=0){
+            fprintf(outfp, "\n");
+            printf("\n");
+        }
         for(int j=0; j<DEPTH; j++){
             fprintf(outfp, "%02x", mem[j+i*DEPTH]);
             printf("%02x ", mem[j+i*DEPTH]);
         }
-        fprintf(outfp, "\n");
-        printf("\n");
     }
     printf("\ndone.\n");
 
