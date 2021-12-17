@@ -30,10 +30,16 @@ int main(void){
                 for(int x=0; x<8; x++){
                     int addr = ((x+block_x*8) + (y*WIDTH + HEIGHT*8*block_y)) * DEPTH;
 
-                    for(int i=0; i<DEPTH; i++){
-                        fprintf(outfp, "%02x", mem[addr+i]);
-                        printf("%02x", mem[addr+i]);
-                    }
+                    fprintf(outfp, "%02x", mem[addr + 2]);
+                    fprintf(outfp, "%02x", mem[addr + 1]);
+                    fprintf(outfp, "%02x", mem[addr + 0]);
+                    printf("%02x", mem[addr + 2]);
+                    printf("%02x", mem[addr + 1]);
+                    printf("%02x", mem[addr + 0]);
+                    // for(int i=0; i<3; i++){
+                    //     fprintf(outfp, "%02x", mem[addr+i]);
+                    //     printf("%02x", mem[addr+i]);
+                    // }
                     printf(" ");
                     fprintf(outfp, "\n");
                 }
