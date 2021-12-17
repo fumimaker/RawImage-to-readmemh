@@ -1,7 +1,7 @@
 # RawImage-to-readmemh
 RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキスト+改行ファイルに変換する
 
-# ファイルごとの役割
+## ファイルごとの役割
 - raw_readmemh.c
   - RAWのRGBのバイナリをreadmemhで読めるようにテキストバイナリ+RGB24改行をしてくれるファイル
 - raw_macroblock.c
@@ -9,7 +9,7 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
 - renzoku.c
   - raw_macroblockのデバッグ用のコード。テスト用の連続したバイナリファイルを出力してくれる。おかしくなったらこれを食わせて様子を見る。
 
-# Usage
+## Usage
 - inputimageで入力画像名を指定
 - outputimageで出力ファイル名を指定
 - DEPTHとWIDTHとHEIGHTを変更
