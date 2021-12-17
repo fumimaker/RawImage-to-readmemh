@@ -3,7 +3,7 @@
 #define HEIGHT  96
 #define WIDTH   96
 #define DEPTH   3
-static const unsigned char inputname[] = "kao_9696.raw";
+static const unsigned char inputname[] = "duchshund_square.raw";
 static const unsigned char outputname[] = "output_macroblock.txt";
 
 int main(void){
