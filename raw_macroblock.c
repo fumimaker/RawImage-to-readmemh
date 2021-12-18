@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-//#define debug
+#define debug
 
-#define HEIGHT  720//96
-#define WIDTH   1280//96
+#define HEIGHT  16//96
+#define WIDTH   24//96
 #define DEPTH   3
-static const unsigned char inputname[] = "duchshund_16_9.raw";
-static const unsigned char outputname[] = "output_duchshund16_9.txt";
+static const unsigned char inputname[] = "renzoku.txt";
+static const unsigned char outputname[] = "output_duchshund640.txt";
 
 int main(void){
     FILE *fp = NULL;
@@ -32,7 +32,8 @@ int main(void){
 #endif
             for(int y=0; y<8; y++){
                 for(int x=0; x<8; x++){
-                    int addr = ((x+block_x*8) + (y*WIDTH + HEIGHT*8*block_y)) * DEPTH;
+                    int addr = 
+                    ((x+block_x*8) + (block_y*WIDTH*8 + 8*y)) * DEPTH;
                     fprintf(outfp, "%02x", mem[addr + 2]);
                     fprintf(outfp, "%02x", mem[addr + 1]);
                     fprintf(outfp, "%02x", mem[addr + 0]);
