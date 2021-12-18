@@ -33,7 +33,7 @@ int main(void){
             for(int y=0; y<8; y++){
                 for(int x=0; x<8; x++){
                     int addr = 
-                    ((x+block_x*8) + (block_y*WIDTH*8 + 8*y)) * DEPTH;
+                    ((x+block_x*8) + (block_y*WIDTH*8 + 24*y)) * DEPTH;
                     fprintf(outfp, "%02x", mem[addr + 2]);
                     fprintf(outfp, "%02x", mem[addr + 1]);
                     fprintf(outfp, "%02x", mem[addr + 0]);
