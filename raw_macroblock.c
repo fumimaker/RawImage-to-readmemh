@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#define debug
+//#define debug
 
-#define HEIGHT  16//96
-#define WIDTH   24//96
+#define HEIGHT  96//96
+#define WIDTH   96//96
 #define DEPTH   3
-static const unsigned char inputname[] = "renzoku.txt";//"duchshund_16_9.raw";
-static const unsigned char outputname[] = "output_duchshund_16_9.txt";
+static const unsigned char inputname[] = "kao_9696.raw"; //"renzoku.txt";
+static const unsigned char outputname[] = "output_kao9696.txt";
 
 int main(void){
     FILE *fp = NULL;

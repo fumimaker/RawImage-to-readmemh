@@ -10,8 +10,14 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
   - raw_macroblockのデバッグ用のコード。テスト用の連続したバイナリファイルを出力してくれる。おかしくなったらこれを食わせて様子を見る。
 
 ## Usage
-- inputimageで入力画像名を指定
-- outputimageで出力ファイル名を指定
-- DEPTHとWIDTHとHEIGHTを変更
-- `gcc raw_readmemh.c -o rawreadmemh` でコンパイル
-- 実行すると同じディレクトリにファイルが出力される。
+1. 元の画像を用意する。
+2. 1:1にトリミングする(ペイント3Dなどでできる)
+3. IrfanViewなどで96*96にリサイズしてraw形式(RGB)で保存する。
+4. [raw_macroblock.c](https://github.com/fumimaker/RawImage-to-readmemh/blob/main/raw_macroblock.c)を使ってRawをマクロブロック配列に並び替えてテキストバイナリに変換。.txtになる
+5. txtをコピーしてVivadoの.memに貼り付ける
+6. Simを回す
+7. Simの結果、simフォルダにoutput.binがあるのでBZなどバイナリエディタで編集してヘッダ+Simの結果のBin+FFD9をつける
+8. 画像が完成する。
+
+
+# Vivadoに食わせられるマクロブロック整列したデータの生成の仕方
