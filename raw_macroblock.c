@@ -5,8 +5,8 @@
 #define HEIGHT  96//96
 #define WIDTH   96//96
 #define DEPTH   3
-static const unsigned char inputname[] = "inpiut/kao_9696.raw"; //"renzoku.txt";
-static const unsigned char outputname[] = "output/output_kao9696.txt";
+static const unsigned char inputname[] = "input/nekomaru640.raw"; //"renzoku.txt";
+static const unsigned char outputname[] = "output/output_nekomaru640.txt";
 
 int main(void){
     FILE *fp = NULL;

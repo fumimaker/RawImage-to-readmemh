@@ -28,75 +28,73 @@ const uint8_t ZigZagInv[8 * 8] =
      29, 22, 15, 23, 30, 37, 44, 51,  //            20,22,33,38,46,51,55,60,
      58, 59, 52, 45, 38, 31, 39, 46,  //            21,34,37,47,50,56,59,61,
      53, 60, 61, 54, 47, 55, 62, 63}; //            35,36,48,49,57,58,62,63
-
+const uint8_t HeaderJfif[2 + 2 + 16] = {0xFF, 0xD8, 0xFF, 0xE0, 0, 16, 'J',
+                                        'F', 'I', 'F', 0, 1, 1, 0, 0, 1, 0, 1, 0, 0};
 uint8_t quantLuminance[8 * 8];
 uint8_t quantChrominance[8 * 8];
+
+const unsigned char SOS []={0xFF,0xD8};
+const unsigned char EOI []={0xFF,0xD9};
+const unsigned char DQT []={0xFF,0xDB};
 
 uint8_t quality = 1;
 
 uint8_t clamp(int, int, int);
 
-uint8_t clamp(int num, int min, int max){
-    if (num <= min){
+uint8_t clamp(int num, int min, int max)
+{
+    if (num <= min)
+    {
         return min;
     }
-    if (num >= max){
+    if (num >= max)
+    {
         return max;
     }
     return num;
 }
 
-int main(void){
-    printf("Hello, World!\n");
+int main(void)
+{
+    FILE *outfp = NULL;
+    outfp = fopen(outputname, "w");
+
+    if (outfp == NULL)
+    {
+        printf("no file.\n");
+        return -1;
+    }
+
 
     quality = quality < 50 ? 5000 / quality : 200 - quality * 2;
     for (int i = 0; i < 8 * 8; i++)
     {
-        // uint8_t lum = (DefaultQuantLuminance[ZigZagInv[i]] * quality + 50) / 100;
-        // uint8_t chr = (DefaultQuantChrominance[ZigZagInv[i]] * quality + 50) / 100;
         uint8_t lum = (DefaultQuantLuminance[i] * quality + 50) / 100;
         uint8_t chr = (DefaultQuantChrominance[i] * quality + 50) / 100;
         quantLuminance[i] = clamp(lum, 1, 255);
         quantChrominance[i] = clamp(chr, 1, 255);
     }
-    printf("============Y Value============\n");
-    for(int i=0; i<8; i++){
-        for(int j=0; j<8; j++){
-            printf("parameter Q%d_%d = 8'h%02x;", i+1, j+1, quantLuminance[i * 8 + j]);
-            printf("\n");
-        }
-    }
-    printf("\n");
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
         {
-            printf("%02x ",quantLuminance[i * 8 + j]);
-        }
-        printf("\n");
-    }
-    
-    printf("\n");
-    printf("============CbCr Value============\n");
-    for(int i=0; i<8; i++){
-        for(int j=0; j<8; j++){
-            //printf("%x ", quantChrominance[i*8+j]);
-            printf("parameter Q%d_%d = 8'h%02x;", i+1, j+1, quantChrominance[i * 8 + j]);
-            printf("\n");
+            printf("%02x ", quantLuminance[i * 8 + j]);
         }
     }
-    printf("\n");
+
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
         {
             printf("%02x ", quantChrominance[i * 8 + j]);
         }
-        printf("\n");
     }
+
+    fprintf(outfp, HeaderJfif);
+    fprintf(outfp, DQT);
     
-    printf("\n");
 
     printf("end.\n");
+    fclose(outfp);
     return 0;
 }
