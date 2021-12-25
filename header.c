@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define HEIGHT 720
-#define WIDTH  1280
+#define HEIGHT 360
+#define WIDTH  640
+#define QUALITY 1
+
 
 uint8_t DefaultQuantLuminance[8 * 8] =
     {16, 11, 10, 16, 24, 40, 51, 61,
@@ -40,7 +42,7 @@ uint8_t quantChrominance[8 * 8];
 
 const unsigned char EOI []={0xFF,0xD9};
 uint8_t Spectral[3] = {0, 0x3f, 0};
-uint8_t quality = 1;
+
 
 const char outputname[] = "headerout.bin";
 FILE *outfp;
@@ -123,6 +125,13 @@ uint8_t clamp(int num, int min, int max)
 
 int main(void)
 {
+    outfp = fopen(outputname, "w");
+    if (outfp == NULL)
+    {
+        printf("no file.\n");
+        return -1;
+    }
+    uint8_t quality = QUALITY;
     quality = quality < 50 ? 5000 / quality : 200 - quality * 2;
     for (int i = 0; i < 8 * 8; i++)
     {
@@ -151,18 +160,12 @@ int main(void)
     }
     printf("\n");
 
-    outfp = fopen(outputname, "w");
-    if (outfp == NULL)
-    {
-        printf("no file.\n");
-        return -1;
-    }
-
     writeArray(HeaderJfif, sizeof(HeaderJfif));
 
-    writeMarker(0xDB, 132);
+    writeMarker(0xDB, 64+3);
     writeData(0);
     writeArray(quantLuminance, sizeof(quantLuminance));
+    writeMarker(0xDB, 64 + 3);
     writeData(1);
     writeArray(quantChrominance, sizeof(quantChrominance));
 
@@ -198,7 +201,11 @@ int main(void)
     }
     writeArray(Spectral,sizeof(Spectral));
 
+    printf("HEIGHT:%d, WIDTH:%d\n",HEIGHT,WIDTH);
+    printf("quality:%d\n",QUALITY);
     printf("output end.\n");
+
+    printf(outputname);
 
     fclose(outfp);
     return 0;

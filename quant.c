@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#define QUALITY 1
+
 const uint8_t DefaultQuantLuminance[8 * 8] =
     {16, 11, 10, 16, 24, 40, 51, 61,
      12, 12, 14, 19, 26, 58, 60, 55,
@@ -32,8 +34,6 @@ const uint8_t ZigZagInv[8 * 8] =
 uint8_t quantLuminance[8 * 8];
 uint8_t quantChrominance[8 * 8];
 
-uint8_t quality = 1;
-
 uint8_t clamp(int, int, int);
 
 uint8_t clamp(int num, int min, int max){
@@ -48,7 +48,7 @@ uint8_t clamp(int num, int min, int max){
 
 int main(void){
     printf("Hello, World!\n");
-
+    uint8_t quality=QUALITY;
     quality = quality < 50 ? 5000 / quality : 200 - quality * 2;
     for (int i = 0; i < 8 * 8; i++)
     {
@@ -56,6 +56,8 @@ int main(void){
         // uint8_t chr = (DefaultQuantChrominance[ZigZagInv[i]] * quality + 50) / 100;
         uint8_t lum = (DefaultQuantLuminance[i] * quality + 50) / 100;
         uint8_t chr = (DefaultQuantChrominance[i] * quality + 50) / 100;
+        // uint8_t lum = (DefaultQuantLuminance[i]);
+        // uint8_t chr = (DefaultQuantChrominance[i]);
         quantLuminance[i] = clamp(lum, 1, 255);
         quantChrominance[i] = clamp(chr, 1, 255);
     }
@@ -97,6 +99,6 @@ int main(void){
     
     printf("\n");
 
-    printf("end.\n");
+    printf("Target Quality=%d, end.\n", QUALITY);
     return 0;
 }
