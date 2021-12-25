@@ -26,6 +26,7 @@ Qualityを指定してコンパイル実行するとターミナルに結果が�
 # header.cの使い方
 QualityとHeight Widthを指定してコンパイル実行する。outputnameに指定したところに.binが出てくる。これがヘッダになっているのでVivadoのSimで生成したJpegのBitstreamと結合するとJpegになる。
 バイナリデータを配列の形にしたいときは HxD(Windowsソフト)を使うと便利。形式を指定してコピーでCを選択するとこんな感じのを出力してくれる。
+![image](https://user-images.githubusercontent.com/25518367/147385920-f5acbdb5-9264-4028-8c49-90e6d2d88bad.png)
 
 ```
 /* C:\Github\RawImage-to-readmemh\headerout.bin (2021/12/25 21:54:11)
