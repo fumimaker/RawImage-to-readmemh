@@ -13,15 +13,20 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
 - quant.c
   - Q値から量子化テーブルを生成してくれるやつ。Qを入れるとVivadoに貼り付ける用の文字列が出てくる。Vivadoではquantizer.vにそれぞれYUV貼ればOK。
 
-# raw_macrobrock.cの使い方
+# ワークフロー
 1. 元の画像を用意する。
-2. 1:1にトリミングする(ペイント3Dなどでできる)
-3. IrfanViewなどで96*96にリサイズしてraw形式(RGB)で保存する。
-4. [raw_macroblock.c](https://github.com/fumimaker/RawImage-to-readmemh/blob/main/raw_macroblock.c)を使ってRawをマクロブロック配列に並び替えてテキストバイナリに変換。.txtになる
+2. 16:9など任意の比率にトリミングする(ペイント3Dなどでできる)。この時、8x8で割れる必要がある。(マクロブロックのため)
+3. IrfanViewなどでraw形式(RGB)で保存する。バイナリ。
+4. [raw_macroblock.c](https://github.com/fumimaker/RawImage-to-readmemh/blob/main/raw_macroblock.c)を使ってRawバイナリをマクロブロック配列に並び替えてテキストバイナリに変換。.txtになる
 5. txtをコピーしてVivadoの.memに貼り付ける
-6. Simを回す
-7. Simの結果、simフォルダにoutput.binがあるのでBZなどバイナリエディタで編集してヘッダ+Simの結果のBin+FFD9をつける
-8. 画像が完成する。
+6. quant.cでQualityを指定して実行する。
+7. Parameterが出てくるのでこれをVivadoのCbCr+Yに貼り付ける。
+8. Simを回す。
+9. Simの結果、simフォルダにoutput.binがある。
+10. header.cでQulityとHeight Widthを指定して実行する。これにより量子化テーブルと高さと横が含まれたバイナリヘッダが出力される。
+11. Vivadoから出力されたものとヘッダをバイナリエディタでくっつける。
+12. 最後に0xFFD9を加えるのを忘れない。
+13. 拡張子を変更して画像が完成する。
 
 
 # quant.cの使い方

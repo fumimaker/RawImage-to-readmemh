@@ -3,10 +3,10 @@
 
 #define HEIGHT 360
 #define WIDTH  640
-#define QUALITY 1
+#define QUALITY 98
 
 
-uint8_t DefaultQuantLuminance[8 * 8] =
+const uint8_t DefaultQuantLuminance[8 * 8] =
     {16, 11, 10, 16, 24, 40, 51, 61,
      12, 12, 14, 19, 26, 58, 60, 55,
      14, 13, 16, 24, 40, 57, 69, 56,
@@ -14,9 +14,8 @@ uint8_t DefaultQuantLuminance[8 * 8] =
      18, 22, 37, 56, 68, 109, 103, 77,
      24, 35, 55, 64, 81, 104, 113, 92,
      49, 64, 78, 87, 103, 121, 120, 101,
-     72, 92, 95, 98, 112, 100, 103, 99
-     };
-uint8_t DefaultQuantChrominance[8 * 8] =
+     72, 92, 95, 98, 112, 100, 103, 99};
+const uint8_t DefaultQuantChrominance[8 * 8] =
     {17, 18, 24, 47, 99, 99, 99, 99,
      18, 21, 26, 66, 99, 99, 99, 99,
      24, 26, 56, 99, 99, 99, 99, 99,
@@ -24,8 +23,10 @@ uint8_t DefaultQuantChrominance[8 * 8] =
      99, 99, 99, 99, 99, 99, 99, 99,
      99, 99, 99, 99, 99, 99, 99, 99,
      99, 99, 99, 99, 99, 99, 99, 99,
-    };
-uint8_t ZigZagInv[8 * 8] =
+     99, 99, 99, 99, 99, 99, 99, 99};
+
+
+const uint8_t ZigZagInv[8 * 8] =
     {0, 1, 8, 16, 9, 2, 3, 10,        // ZigZag[] =  0, 1, 5, 6,14,15,27,28,
      17, 24, 32, 25, 18, 11, 4, 5,    //             2, 4, 7,13,16,26,29,42,
      12, 19, 26, 33, 40, 48, 41, 34,  //             3, 8,12,17,25,30,41,43,
@@ -34,6 +35,8 @@ uint8_t ZigZagInv[8 * 8] =
      29, 22, 15, 23, 30, 37, 44, 51,  //            20,22,33,38,46,51,55,60,
      58, 59, 52, 45, 38, 31, 39, 46,  //            21,34,37,47,50,56,59,61,
      53, 60, 61, 54, 47, 55, 62, 63}; //            35,36,48,49,57,58,62,63
+
+
 uint8_t HeaderJfif[2 + 2 + 16] = {0xFF, 0xD8, 0xFF, 0xE0, 0, 16, 'J',
 'F', 'I', 'F', 0, 1, 1, 0, 0, 1, 0, 1, 0, 0};
 
@@ -110,102 +113,94 @@ void writeArray(uint8_t *data, uint16_t length){
     printf(" 書き込みサイズ%d\n", i);
 }
 
-uint8_t clamp(int num, int min, int max)
-{
-    if (num <= min)
-    {
+uint8_t clamp(int num, int min, int max) {
+    if (num <= min) {
         return min;
     }
-    if (num >= max)
-    {
+    if (num >= max) {
         return max;
     }
     return num;
 }
 
-int main(void)
-{
+int main(void) {
     outfp = fopen(outputname, "w");
-    if (outfp == NULL)
-    {
+    if (outfp == NULL) {
         printf("no file.\n");
         return -1;
     }
     uint8_t quality = QUALITY;
     quality = quality < 50 ? 5000 / quality : 200 - quality * 2;
-    for (int i = 0; i < 8 * 8; i++)
-    {
+    for (int i = 0; i < 8 * 8; i++) {
         uint8_t lum = (DefaultQuantLuminance[i] * quality + 50) / 100;
         uint8_t chr = (DefaultQuantChrominance[i] * quality + 50) / 100;
         quantLuminance[i] = clamp(lum, 1, 255);
         quantChrominance[i] = clamp(chr, 1, 255);
     }
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
             printf("%02x ", quantLuminance[i * 8 + j]);
         }
         printf("\n");
     }
     printf("\n");
 
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
             printf("%02x ", quantChrominance[i * 8 + j]);
         }
         printf("\n");
     }
+
     printf("\n");
 
     writeArray(HeaderJfif, sizeof(HeaderJfif));
 
-    writeMarker(0xDB, 64+3);
+    writeMarker(0xDB, 64 + 3);
     writeData(0);
     writeArray(quantLuminance, sizeof(quantLuminance));
     writeMarker(0xDB, 64 + 3);
     writeData(1);
     writeArray(quantChrominance, sizeof(quantChrominance));
 
-    writeMarker(0xC0, 2+6+3*3);
+    writeMarker(0xC0, 2 + 6 + 3 * 3);
     writeData(8);
-    writeData(HEIGHT>>8);
-    writeData(HEIGHT&0xFF);
-    writeData(WIDTH>>8);
-    writeData(WIDTH&0xFF);
+    writeData(HEIGHT >> 8);
+    writeData(HEIGHT & 0xFF);
+    writeData(WIDTH >> 8);
+    writeData(WIDTH & 0xFF);
     writeData(3);
-    for(int i=1;i<=3;i++){
+    for (int i = 1; i <= 3; i++) {
         writeData(i);
         writeData(0x11);
-        if(i==1){
+        if (i == 1) {
             writeData(0x00);
-        }else{
+        } else {
             writeData(0x01);
         }
     }
 
     writeArray(DHT_Table, sizeof(DHT_Table));
 
-    writeMarker(0xDA, 2+1+2*3+3);
+    writeMarker(0xDA, 2 + 1 + 2 * 3 + 3);
     writeData(3);
-    for (size_t i = 1; i <= 3; i++)
-    {
+    for (size_t i = 1; i <= 3; i++) {
         writeData(i);
-        if (i==1){
+        if (i == 1) {
             writeData(0x00);
         } else {
             writeData(0x11);
         }
     }
-    writeArray(Spectral,sizeof(Spectral));
+    writeArray(Spectral, sizeof(Spectral));
 
-    printf("HEIGHT:%d, WIDTH:%d\n",HEIGHT,WIDTH);
-    printf("quality:%d\n",QUALITY);
-    printf("output end.\n");
+    printf("\nHEIGHT:%d, WIDTH:%d\n", HEIGHT, WIDTH);
+    printf("quality:%d\n", QUALITY);
+    printf("output end.\n\n");
 
-    printf(outputname);
+    unsigned char str[256];
+    sprintf(str, "output file = %s \n", outputname);
+    printf("%s", str);
 
     fclose(outfp);
     return 0;
