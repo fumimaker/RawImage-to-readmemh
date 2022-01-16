@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define sizeofdata 384
+#define sizeofdata 640*360
 int main(){
     FILE *outfp = NULL;
     outfp = fopen("renzoku.txt", "wb");
