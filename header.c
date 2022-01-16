@@ -3,7 +3,7 @@
 
 #define HEIGHT 360
 #define WIDTH  640
-#define QUALITY 98
+#define QUALITY 99
 
 
 const uint8_t DefaultQuantLuminance[8 * 8] =

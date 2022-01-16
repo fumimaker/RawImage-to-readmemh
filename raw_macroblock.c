@@ -1,13 +1,14 @@
 #include <stdio.h>
 
-//#define debug
+#define debug
 
 #define HEIGHT  360//96
 #define WIDTH   640//96
 #define DEPTH   3
-static const unsigned char inputname[] = "input/nekomaru640.raw"; //"renzoku.txt";
-static const unsigned char outputname[] = "output/output_nekomaru640.txt";
-
+// static const unsigned char inputname[] = "input/nekomaru640.raw"; //"renzoku.txt";
+// static const unsigned char outputname[] = "output/output_nekomaru640.txt";
+static const unsigned char inputname[] = "renzoku.txt";
+static const unsigned char outputname[] = "renzoku_out.txt";
 int main(void){
     FILE *fp = NULL;
     FILE *outfp = NULL;
@@ -62,7 +63,9 @@ int main(void){
 #endif
     }
     printf("%d X %d\n", WIDTH, HEIGHT);
-    printf(outputname);
+    unsigned char str[256];
+    sprintf(str, "output file = %s \n", outputname);
+    printf("%s", str);
     printf("\ndone.\n");
 
     fclose(fp);
