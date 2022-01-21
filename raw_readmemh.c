@@ -3,8 +3,8 @@
 #define HEIGHT  96
 #define WIDTH   96
 #define DEPTH   3
-static const unsigned char inputname[] = "kao_9696.raw";
-static const unsigned char outputname[] = "testbin_image.txt";
+static const unsigned char inputname[] = "./input/kao_9696.raw";
+static const unsigned char outputname[] = "./output/testbin_image.txt";
 
 int main(void){
     FILE *fp = NULL;

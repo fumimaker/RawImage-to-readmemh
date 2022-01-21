@@ -2,8 +2,8 @@
 
 #define debug
 
-#define HEIGHT 360  // 96
-#define WIDTH 640   // 96
+#define HEIGHT 720  // 96
+#define WIDTH 1280   // 96
 #define DEPTH 3
 // static const unsigned char inputname[] = "input/nekomaru640.raw";
 // //"renzoku.txt"; static const unsigned char outputname[] =
