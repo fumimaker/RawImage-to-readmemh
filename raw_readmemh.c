@@ -1,10 +1,19 @@
 #include <stdio.h>
 
-#define HEIGHT  96
-#define WIDTH   96
+// #define debug
+
+#define HEIGHT  720
+#define WIDTH   1280
 #define DEPTH   3
-static const unsigned char inputname[] = "./input/kao_9696.raw";
-static const unsigned char outputname[] = "./output/testbin_image.txt";
+//////////////////////////////////////////////////////////
+// raw画像データをreadmemh変換用
+// InputIF入力用データです
+//////////////////////////////////////////////////////////
+static const unsigned char inputname[] = "input/nekomaru720.raw";
+static const unsigned char outputname[] = "output/inputIF_nekomaru720.txt";
+
+// static const unsigned char inputname[] = "renzoku.bin";
+// static const unsigned char outputname[] = "output/renzoku_readmemh.txt";
 
 int main(void){
     FILE *fp = NULL;
@@ -12,7 +21,7 @@ int main(void){
     unsigned char mem[HEIGHT * WIDTH * DEPTH];
 
     fp = fopen(inputname, "rb");
-    outfp = fopen("output_image.txt", "w");
+    outfp = fopen(outputname, "w");
 
     if(fp==NULL||outfp==NULL){
         printf("no file.\n");
@@ -23,11 +32,15 @@ int main(void){
     for(int i=0; i<HEIGHT*WIDTH; i++){
         if(i!=0){
             fprintf(outfp, "\n");
+            #ifdef debug
             printf("\n");
+            #endif
         }
         for(int j=0; j<DEPTH; j++){
-            fprintf(outfp, "%02x", mem[j+i*DEPTH]);
+            fprintf(outfp, "%02x", mem[(2-j)+i*DEPTH]);
+            #ifdef debug
             printf("%02x ", mem[j+i*DEPTH]);
+            #endif
         }
     }
     printf("\ndone.\n");

@@ -1,14 +1,21 @@
 #include <stdio.h>
 
+
 #define debug
 
-#define HEIGHT  360//96
-#define WIDTH   640//96
+#define HEIGHT  720//96
+#define WIDTH   1280//96
 #define DEPTH   3
-// static const unsigned char inputname[] = "input/nekomaru640.raw"; //"renzoku.txt";
-// static const unsigned char outputname[] = "output/output_nekomaru640.txt";
-static const unsigned char inputname[] = "renzoku.txt";
-static const unsigned char outputname[] = "renzoku_out.txt";
+//////////////////////////////////////////////////////////
+// エンコーダーの出力確認用
+// InputIFに入力するのはこのデータではありません
+//////////////////////////////////////////////////////////
+static const unsigned char inputname[] = "input/nekomaru720.raw"; //"renzoku.txt";
+static const unsigned char outputname[] = "output/output_nekomaru720.txt";
+
+// static const unsigned char inputname[] = "renzoku.bin";
+// static const unsigned char outputname[] = "output/renzoku_macro.txt";
+
 int main(void){
     FILE *fp = NULL;
     FILE *outfp = NULL;
@@ -25,7 +32,8 @@ int main(void){
 
     fread(mem, sizeof(unsigned char), sizeof(mem)/sizeof(mem[0]), fp);
 
-        //マクロブロックの中身
+    printf("%02x%02x%02x\n",mem[0],mem[1],mem[2]);
+    //マクロブロックの中身
     for(int block_y=0; block_y<HEIGHT/8; block_y++){
         for(int block_x=0; block_x<WIDTH/8; block_x++){
 #ifdef debug
