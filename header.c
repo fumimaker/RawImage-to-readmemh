@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define HEIGHT 720
-#define WIDTH  1280
+#define HEIGHT 8//720
+#define WIDTH  1280//1280
 #define QUALITY 99
 
 

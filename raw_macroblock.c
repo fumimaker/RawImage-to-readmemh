@@ -16,6 +16,10 @@ static const unsigned char outputname[] = "output/output_nekomaru720.txt";
 // static const unsigned char inputname[] = "renzoku.bin";
 // static const unsigned char outputname[] = "output/renzoku_macro.txt";
 
+// static const unsigned char inputname[] =
+//     "input/duchshund360.raw";  //"renzoku.txt";
+// static const unsigned char outputname[] = "output/output_duchshund360.txt";
+
 int main(void){
     FILE *fp = NULL;
     FILE *outfp = NULL;

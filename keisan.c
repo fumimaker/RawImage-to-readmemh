@@ -10,8 +10,28 @@ int main() {
     uint32_t cnt = 0x1e;
 
     uint32_t masked_data = data & (1 << cnt) - 1;
-
     printf("%x\n",masked_data);
+
+    int addr = 0;
+    for (int block_x = 0; block_x < 160; block_x++) {
+        for (int macro_y = 0; macro_y < 8; macro_y++) {
+            for (int macro_x=0; macro_x < 8; macro_x++){
+                addr = ((macro_x + block_x*8) + (1280*macro_y));
+                printf("%04x ", addr);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+
+    for(int i=4; i<0x45; i++){
+        printf("%d, %d\n", (i - 4) % 8, (i - 4) >> 3);
+    }
+
+    uint64_t data_in = 0x112345678;
+    uint32_t data32 = data_in & 0xFFFFFFFF;
+    uint32_t last = (data_in & 0x100000000) > 0 ? 1 : 0;
+    printf("data:%x last:%x\n", data32, last);
     return 0;
 }
 
