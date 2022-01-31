@@ -45,9 +45,9 @@ int main(void) {
     fread(header, sizeof(unsigned char), sizeofheader, fp_header);
     printf("sizeofheader:%d bytes\n", sizeofheader);
 
-    for(int i=0; i<90; i++){
+    for(int i=0; i<180; i++){
         char moji[32];
-        sprintf(moji, "bitstream/%02d.bin", i);
+        sprintf(moji, "bitstream/%03d.bin", i);
         fp = fopen(moji, "rb");
         if (fp == NULL) {
             printf("%02d no file.\n", i);
@@ -61,26 +61,16 @@ int main(void) {
         sizeofdata = sb.st_size;
         fread(mem, sizeof(unsigned char), sizeofdata, fp);
 
-        // memcpy(buf, header, sizeofheader);
-        // for (int k = 0; k < sizeofheader; k++) {
-        //     printf("%02x ", buf[k]);
-        //     if ((k + 1) % 0xF == 0) {
-        //         printf("\n");
-        //     }
-        // }
-        // printf("\n\n");
-
         
         memcpy(buf, header, sizeofheader);
         memcpy(buf + sizeofheader, mem, sizeofdata);
         memcpy(buf + sizeofheader + sizeofdata, eof, 2);
 
-        sprintf(moji, "jpeg/%02d.jpg", i);
+        sprintf(moji, "jpeg/%03d.jpg", i);
         FILE *fp_out = fopen(moji, "wb");
         fwrite(buf, sizeof(unsigned char), sizeofheader + sizeofdata + 2,
                fp_out);
 
-        
         printf("file%d: filesize:%d bytes\n", i, sizeofdata+sizeofheader+2);
         
         fclose(fp);
