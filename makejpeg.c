@@ -28,7 +28,7 @@ int main(void) {
     unsigned char eof[2]={0xFF, 0x09};
 
     FILE *fp, *fp_header;
-    char moji[32];
+    
     struct stat sb;
     int sizeofheader, sizeofdata;
 
@@ -43,45 +43,51 @@ int main(void) {
     }
     sizeofheader = sb.st_size;
     fread(header, sizeof(unsigned char), sizeofheader, fp_header);
-
-    int i = 0;
-    sprintf(moji, "bitstream/%02d.bin", i);
-    fp = fopen(moji, "rb");
-    if (fp == NULL) {
-        printf("%02d no file.\n", i);
-        return -1;
-    }
-
-    
-    if (stat(moji, &sb) == -1) {
-        perror("stat");
-        exit(EXIT_FAILURE);
-    }
-    sizeofdata = sb.st_size;
-
-    fread(mem, sizeof(unsigned char), sizeofdata, fp);
-
-    printf("\n");
-
-    memcpy(buf, header, sizeofheader);
-    for (int k = 0; k < sizeofheader; k++) {
-        printf("%02x ", buf[k]);
-        if ((k + 1) % 0xF == 0) {
-            printf("\n");
-        }
-    }
-    printf("\n\n");
-
-    memcpy(buf + sizeofheader, mem, sizeofdata);
-    memcpy(buf + sizeofheader + sizeofdata, eof, 2);
-    FILE *fp_out = fopen("jpeg/00.jpg","wb");
-    fwrite(buf, sizeof(unsigned char), sizeofheader + sizeofdata + 2, fp_out);
-
     printf("sizeofheader:%d bytes\n", sizeofheader);
-    printf("filesize:%d bytes\n", sizeofdata);
+
+    for(int i=0; i<90; i++){
+        char moji[32];
+        sprintf(moji, "bitstream/%02d.bin", i);
+        fp = fopen(moji, "rb");
+        if (fp == NULL) {
+            printf("%02d no file.\n", i);
+            return -1;
+        }
+
+        if (stat(moji, &sb) == -1) {
+            perror("stat");
+            exit(EXIT_FAILURE);
+        }
+        sizeofdata = sb.st_size;
+        fread(mem, sizeof(unsigned char), sizeofdata, fp);
+
+        // memcpy(buf, header, sizeofheader);
+        // for (int k = 0; k < sizeofheader; k++) {
+        //     printf("%02x ", buf[k]);
+        //     if ((k + 1) % 0xF == 0) {
+        //         printf("\n");
+        //     }
+        // }
+        // printf("\n\n");
+
+        
+        memcpy(buf, header, sizeofheader);
+        memcpy(buf + sizeofheader, mem, sizeofdata);
+        memcpy(buf + sizeofheader + sizeofdata, eof, 2);
+
+        sprintf(moji, "jpeg/%02d.jpg", i);
+        FILE *fp_out = fopen(moji, "wb");
+        fwrite(buf, sizeof(unsigned char), sizeofheader + sizeofdata + 2,
+               fp_out);
+
+        
+        printf("file%d: filesize:%d bytes\n", i, sizeofdata+sizeofheader+2);
+        
+        fclose(fp);
+        fclose(fp_out);
+    }
     printf("\ndone.\n");
-    fclose(fp);
     fclose(fp_header);
-    fclose(fp_out);
+
     return 0;
 }
