@@ -12,7 +12,8 @@ static const unsigned char inputname[] = "input/duchshund720.raw";
 static const unsigned char outputname[] = "output/duchshund720_readmemh.txt";
 
 static const unsigned char headername[]="headerout.bin";
-
+#define numofframe 10
+#define numofjpeg (numofframe*90)
 // int GetFileSize(const char* FileName[]) {
 //     int fsize = 0;
 //     FILE* fp = fopen(FileName, "rb");
@@ -45,9 +46,9 @@ int main(void) {
     fread(header, sizeof(unsigned char), sizeofheader, fp_header);
     printf("sizeofheader:%d bytes\n", sizeofheader);
 
-    for(int i=0; i<180; i++){
+    for(int i=0; i<numofjpeg; i++){
         char moji[32];
-        sprintf(moji, "bitstream/%03d.bin", i);
+        sprintf(moji, "binout/%03d.bin", i);
         fp = fopen(moji, "rb");
         if (fp == NULL) {
             printf("%02d no file.\n", i);

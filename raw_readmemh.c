@@ -9,8 +9,8 @@
 // raw画像データをreadmemh変換用
 // InputIF入力用データです
 //////////////////////////////////////////////////////////
-static const unsigned char inputname[] = "input/duchshund720.raw";
-static const unsigned char outputname[] = "output/duchushund720_readmemh.txt";
+static const unsigned char inputname[] = "input/0x0B_.raw";
+static const unsigned char outputname[] = "output/0x0B_readmemh.txt";
 
 // static const unsigned char inputname[] = "renzoku.bin";
 // static const unsigned char outputname[] = "output/renzoku_readmemh.txt";
