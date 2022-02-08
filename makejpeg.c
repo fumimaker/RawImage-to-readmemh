@@ -8,11 +8,8 @@
 //////////////////////////////////////////////////////////
 // エンコードbitstreamをヘッダと合成
 //////////////////////////////////////////////////////////
-static const unsigned char inputname[] = "input/duchshund720.raw";
-static const unsigned char outputname[] = "output/duchshund720_readmemh.txt";
-
 static const unsigned char headername[]="headerout.bin";
-#define numofframe 10
+#define numofframe 1000
 #define numofjpeg (numofframe*90)
 // int GetFileSize(const char* FileName[]) {
 //     int fsize = 0;
@@ -29,7 +26,7 @@ int main(void) {
     unsigned char eof[2]={0xFF, 0x09};
 
     FILE *fp, *fp_header;
-    
+
     struct stat sb;
     int sizeofheader, sizeofdata;
 
@@ -62,7 +59,6 @@ int main(void) {
         sizeofdata = sb.st_size;
         fread(mem, sizeof(unsigned char), sizeofdata, fp);
 
-        
         memcpy(buf, header, sizeofheader);
         memcpy(buf + sizeofheader, mem, sizeofdata);
         memcpy(buf + sizeofheader + sizeofdata, eof, 2);
@@ -73,7 +69,7 @@ int main(void) {
                fp_out);
 
         printf("file%d: filesize:%d bytes\n", i, sizeofdata+sizeofheader+2);
-        
+
         fclose(fp);
         fclose(fp_out);
     }
