@@ -23,7 +23,7 @@ static const unsigned char headername[]="headerout.bin";
 
 int main(void) {
     unsigned char mem[50*1024], header[1024], buf[50*1024];
-    unsigned char eof[2]={0xFF, 0x09};
+    unsigned char eof[2]={0xFF, 0xD9};
 
     FILE *fp, *fp_header;
 
@@ -45,7 +45,7 @@ int main(void) {
 
     for(int i=0; i<numofjpeg; i++){
         char moji[32];
-        sprintf(moji, "binout/%03d.bin", i);
+        sprintf(moji, "binout/%04d.bin", i);
         fp = fopen(moji, "rb");
         if (fp == NULL) {
             printf("%02d no file.\n", i);
@@ -63,7 +63,7 @@ int main(void) {
         memcpy(buf + sizeofheader, mem, sizeofdata);
         memcpy(buf + sizeofheader + sizeofdata, eof, 2);
 
-        sprintf(moji, "jpeg/%03d.jpg", i);
+        sprintf(moji, "jpeg/%04d.jpg", i);
         FILE *fp_out = fopen(moji, "wb");
         fwrite(buf, sizeof(unsigned char), sizeofheader + sizeofdata + 2,
                fp_out);
