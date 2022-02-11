@@ -48,7 +48,7 @@ int main(void) {
         sprintf(moji, "binout/%04d.bin", i);
         fp = fopen(moji, "rb");
         if (fp == NULL) {
-            printf("%02d no file.\n", i);
+            printf("%04d no file.\n", i);
             return -1;
         }
 
