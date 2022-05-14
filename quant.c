@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define QUALITY 99
+#define QUALITY 100
 
 const uint8_t DefaultQuantLuminance[8 * 8] =
     {16, 11, 10, 16, 24, 40, 51, 61,
@@ -77,7 +77,7 @@ int main(void){
         }
         printf("\n");
     }
-    
+
     printf("\n");
     printf("============CbCr Value============\n");
     for(int i=0; i<8; i++){
@@ -96,7 +96,7 @@ int main(void){
         }
         printf("\n");
     }
-    
+
     printf("\n");
 
     printf("Target Quality=%d, end.\n", QUALITY);

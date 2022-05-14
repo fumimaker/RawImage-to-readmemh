@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 
-#define debug
+// #define debug
 
 #define HEIGHT  720//96
 #define WIDTH   1280//96
@@ -10,8 +10,8 @@
 // エンコーダーの出力確認用
 // InputIFに入力するのはこのデータではありません
 //////////////////////////////////////////////////////////
-static const unsigned char inputname[] = "input/nekomaru720.raw"; //"renzoku.txt";
-static const unsigned char outputname[] = "output/output_nekomaru720.txt";
+static const unsigned char inputname[] = "input/ski720.raw"; //"renzoku.txt";
+static const unsigned char outputname[] = "output/output_ski720.txt";
 
 // static const unsigned char inputname[] = "renzoku.bin";
 // static const unsigned char outputname[] = "output/renzoku_macro.txt";
@@ -45,7 +45,7 @@ int main(void){
 #endif
             for(int y=0; y<8; y++){
                 for(int x=0; x<8; x++){
-                    int addr = 
+                    int addr =
                     ((x+block_x*8) + (block_y*WIDTH*8 + WIDTH*y)) * DEPTH;
                     fprintf(outfp, "%02x", mem[addr + 2]);
                     fprintf(outfp, "%02x", mem[addr + 1]);

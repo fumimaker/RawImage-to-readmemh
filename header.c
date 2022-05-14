@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define HEIGHT 8//720
+#define HEIGHT 720//720
 #define WIDTH  1280//1280
-#define QUALITY 99
+#define QUALITY 30
 
 
 const uint8_t DefaultQuantLuminance[8 * 8] =
@@ -47,7 +47,7 @@ const unsigned char EOI []={0xFF,0xD9};
 uint8_t Spectral[3] = {0, 0x3f, 0};
 
 
-const char outputname[] = "headerout.bin";
+const char outputname[] = "Q30headerout.bin";
 FILE *outfp;
 
 unsigned char DHT_Table[432] = {

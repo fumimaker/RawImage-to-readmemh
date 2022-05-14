@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////
 // エンコードbitstreamをヘッダと合成
 //////////////////////////////////////////////////////////
-static const unsigned char headername[]="headerout.bin";
+static const unsigned char headername[]="./Q30headerout.bin";
 #define numofframe 1000
 #define numofjpeg (numofframe*90)
 // int GetFileSize(const char* FileName[]) {
@@ -22,7 +22,7 @@ static const unsigned char headername[]="headerout.bin";
 // }
 
 int main(void) {
-    unsigned char mem[50*1024], header[1024], buf[50*1024];
+    unsigned char mem[1000*1024], header[1024], buf[1000*1024];
     unsigned char eof[2]={0xFF, 0xD9};
 
     FILE *fp, *fp_header;
