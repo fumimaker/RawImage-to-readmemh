@@ -1,5 +1,15 @@
 #include <stdio.h>
 #include <stdint.h>
+uint8_t clamp(int num, int min, int max) {
+    if (num <= min) {
+        return (uint8_t)min;
+    }
+    if (num >= max) {
+        return (uint8_t)max;
+    }
+    return (uint8_t)num;
+}
+
 int main() {
     for (int i = 0; i < 1280*8; i++){
         if((i)%10==0){
@@ -32,6 +42,12 @@ int main() {
     uint32_t data32 = data_in & 0xFFFFFFFF;
     uint32_t last = (data_in & 0x100000000) > 0 ? 1 : 0;
     printf("data:%x last:%x\n", data32, last);
+
+    int QUALITY = 95;
+    float a = clamp(((100 - QUALITY) / 50.0 * 50), 1, 255);
+    float b = clamp((float)((100 - QUALITY) / 50.0 * 50) + 0.5, 1, 255);
+    printf("%f %f", a, b);
+
     return 0;
 }
 

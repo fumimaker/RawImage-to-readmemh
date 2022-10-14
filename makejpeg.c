@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////
 // エンコードbitstreamをヘッダと合成
 //////////////////////////////////////////////////////////
-static const unsigned char headername[]="./Q30headerout.bin";
+static const unsigned char headername[]="./Q95headerout_fumi.bin";
 #define numofframe 1000
 #define numofjpeg (numofframe*90)
 // int GetFileSize(const char* FileName[]) {
