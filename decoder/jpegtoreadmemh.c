@@ -10,6 +10,8 @@ static const unsigned char outputname[] = "out_readmemh.txt";
 
 #define memsize (500 * 1000) //500KByte
 
+// #define debug
+
 int main(void){
     unsigned char mem[memsize];
     FILE *infp = NULL;
@@ -30,14 +32,21 @@ int main(void){
         int read_len = fread(buf, 1, 4, infp);
         if(read_len < 4){
             if(feof(infp)){
+                #ifdef debug
                 printf("len=%d eof detected\n", read_len);
+                #endif
                 flg = 0;
             } else {
+                #ifdef debug
                 printf("len=%d else\n", read_len);
+                #endif
             }
         }
         int *data = buf;
-        printf("0x%04x\n",*data);
+        #ifdef debug
+        printf("0x%08x\n",*data);
+        #endif
+        fprintf(outfp, "%08x\n", *data);
     }
 
     fclose(infp);
