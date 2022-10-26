@@ -5,7 +5,7 @@
 // テストベンチ検証用データ準備
 //////////////////////////////////////////////////////////
 
-static const unsigned char inputname[] = "0005.jpg";
+static const unsigned char inputname[] = "tanshoku.jpg";
 static const unsigned char outputname[] = "out_readmemh.txt";
 
 #define memsize (500 * 1000) //500KByte
@@ -47,6 +47,12 @@ int main(void){
         printf("0x%08x\n",*data);
         #endif
         fprintf(outfp, "%08x\n", *data);
+
+
+        // Reverse endian not working //
+        //fprintf(outfp, "%02x%02x%02x%02x\n", (*data & 0xFF), (*data & 0xFF00)>>8, (*data & 0xFF0000)>>16, (*data & 0xFF000000)>>24);
+
+        // printf("%02x%02x%02x%02x\n", (*data & 0xFF), (*data & 0xFF00) >> 8, (*data & 0xFF0000) >> 16, (*data & 0xFF000000) >> 24);
     }
 
     fclose(infp);
