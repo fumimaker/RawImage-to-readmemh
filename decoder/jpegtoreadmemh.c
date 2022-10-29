@@ -5,7 +5,7 @@
 // テストベンチ検証用データ準備
 //////////////////////////////////////////////////////////
 
-static const unsigned char inputname[] = "0001_kai.jpg";
+static const unsigned char inputname[] = "0003_kai.jpg";
 static const unsigned char outputname[] = "out_readmemh.txt";
 
 #define memsize (500 * 1000) //500KByte

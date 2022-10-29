@@ -4,8 +4,10 @@
 #define WIDTH   128
 #define DEPTH   3
 
-static const unsigned char inputname[] = "outputraw.raw";  //"renzoku.txt";
+static const unsigned char inputname[] = "outputraw3.raw";  //"renzoku.txt";
 static const unsigned char outputname[] = "output_text_to_raw.raw";
+
+//#define debug
 
 int main(void) {
 	FILE *fp = NULL;
@@ -28,7 +30,9 @@ int main(void) {
     unsigned int image[HEIGHT][WIDTH];
     while (fscanf(fp, "%04x %04x %02hhx %02hhx %02hhx", &x, &y, &r, &g, &b)!=EOF){
         image[y][x] = (r << 16) | (g << 8) | (b << 0);
+        #ifdef debug
         printf("%06x %04x %04x %02x %02x %02x\n", image[y][x], x, y, r, g, b);
+        #endif
 
     }
     for(int i=0; i<HEIGHT; i++){
