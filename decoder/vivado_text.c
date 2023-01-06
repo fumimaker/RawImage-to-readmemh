@@ -4,7 +4,7 @@
 #define WIDTH   128
 #define DEPTH   3
 
-static const unsigned char inputname[] = "outputraw3.raw";  //"renzoku.txt";
+static const unsigned char inputname[] = "outputraw.raw";  //"renzoku.txt";
 static const unsigned char outputname[] = "output_text_to_raw.raw";
 
 //#define debug

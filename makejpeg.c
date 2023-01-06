@@ -43,6 +43,8 @@ int main(void) {
     fread(header, sizeof(unsigned char), sizeofheader, fp_header);
     printf("sizeofheader:%d bytes\n", sizeofheader);
 
+    int total_sizeofdata = 0;
+
     for(int i=0; i<numofjpeg; i++){
         char moji[32];
         sprintf(moji, "binout/%04d.bin", i);
@@ -57,6 +59,7 @@ int main(void) {
             exit(EXIT_FAILURE);
         }
         sizeofdata = sb.st_size;
+        total_sizeofdata += sizeofdata;
         fread(mem, sizeof(unsigned char), sizeofdata, fp);
 
         memcpy(buf, header, sizeofheader);
