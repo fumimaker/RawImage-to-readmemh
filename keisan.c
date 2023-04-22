@@ -46,7 +46,12 @@ int main() {
     int QUALITY = 95;
     float a = clamp(((100 - QUALITY) / 50.0 * 50), 1, 255);
     float b = clamp((float)((100 - QUALITY) / 50.0 * 50) + 0.5, 1, 255);
-    printf("%f %f", a, b);
+    printf("%f %f\n", a, b);
+
+	float f = 4096;
+	uint8_t wari = 1;
+
+	printf("%f %d %d\n", f/wari, (uint32_t)f/wari, (uint32_t)f/wari+1);
 
     return 0;
 }

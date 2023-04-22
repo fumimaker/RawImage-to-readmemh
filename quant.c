@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define QUALITY 95
+#define QUALITY 97
 
 const uint8_t DefaultQuantLuminance[8 * 8] =
     {16, 11, 10, 16, 24, 40, 51, 61,
