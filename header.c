@@ -3,7 +3,7 @@
 
 #define HEIGHT 720//720
 #define WIDTH  1280//1280
-#define QUALITY 97
+#define QUALITY 50
 
 
 const uint8_t DefaultQuantLuminance[8 * 8] =
@@ -47,7 +47,7 @@ const unsigned char EOI []={0xFF,0xD9};
 uint8_t Spectral[3] = {0, 0x3f, 0};
 
 
-const char outputname[] = "Q97header20230422.bin";
+const char outputname[] = "Q50header20230423.bin";
 FILE *outfp;
 
 // unsigned char DHT_Table[432] = {
