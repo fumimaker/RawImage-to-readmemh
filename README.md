@@ -15,6 +15,8 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
 - ./decoder/jpegtoreadmemh.c
   - JpegDecoder開発用テストベンチに食わせるデータ製作ツール．
   - Jpegを入力するとreadmemhに読ませる事ができるデータが一行32ビットの16進数テキストで出力される．
+- parameters.c
+  - 4096で割るテーブル生成用のコード。ただ出すだけ。
 
 # ワークフロー
 1. 元の画像を用意する。
