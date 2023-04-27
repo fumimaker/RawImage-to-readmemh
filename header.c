@@ -47,7 +47,7 @@ const unsigned char EOI []={0xFF,0xD9};
 uint8_t Spectral[3] = {0, 0x3f, 0};
 
 
-const char outputname[] = "Q50header20230423.bin";
+const char outputname[] = "Q50header20230427.bin";
 FILE *outfp;
 
 // unsigned char DHT_Table[432] = {
