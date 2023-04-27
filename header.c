@@ -204,6 +204,15 @@ uint8_t clamp(int num, int min, int max) {
     return (uint8_t)num;
 }
 
+void writeZigZagArray(uint8_t *data, uint16_t length) {
+    printf("配列サイズ%d", length);
+    uint16_t i;
+    for (i = 0; i < length; i++) {
+        writeData(data[ZigZagInv[i]]);
+    }
+    printf(" 書き込みサイズ%d\n", i);
+}
+
 int main(void) {
     outfp = fopen(outputname, "w");
     if (outfp == NULL) {
@@ -256,10 +265,13 @@ int main(void) {
 
     writeMarker(0xDB, 64 + 3);
     writeData(0);
-    writeArray(quantLuminance, sizeof(quantLuminance));
+    //writeArray(quantLuminance, sizeof(quantLuminance));
+	writeZigZagArray(quantLuminance, sizeof(quantLuminance));
+
     writeMarker(0xDB, 64 + 3);
     writeData(1);
-    writeArray(quantChrominance, sizeof(quantChrominance));
+	//writeArray(quantChrominance, sizeof(quantChrominance));
+    writeZigZagArray(quantChrominance, sizeof(quantChrominance));
 
     writeMarker(0xC0, 2 + 6 + 3 * 3);
     writeData(8);
