@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////
 // エンコードbitstreamをヘッダと合成
 //////////////////////////////////////////////////////////
-static const unsigned char headername[]="./Q50header20230427.bin";
+static const unsigned char headername[]="./Q50header20230427.bin";//1280*8サイズのヘッダ
 #define numofframe 1000
 #define numofjpeg (numofframe*90)
 // int GetFileSize(const char* FileName[]) {
