@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define HEIGHT 720//720
+#define HEIGHT 8//720
 #define WIDTH  1280//1280
 #define QUALITY 50
 
@@ -47,7 +47,7 @@ const unsigned char EOI []={0xFF,0xD9};
 uint8_t Spectral[3] = {0, 0x3f, 0};
 
 
-const char outputname[] = "Q50header20230427.bin";
+const char outputname[] = "Q50header20230428.bin";
 FILE *outfp;
 
 // unsigned char DHT_Table[432] = {
