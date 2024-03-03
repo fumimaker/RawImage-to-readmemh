@@ -12,13 +12,14 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
   - 最後にヘッダファイルを合成するのがめんどくさくなったので自動生成してくれるようにしたやつ。Jpegのヘッダファイルの上の部分は作ってくれるのであとでBinEditerで貼り付ければOK
 - quant.c
   - Q値から量子化テーブルを生成してくれるやつ。Qを入れるとVivadoに貼り付ける用の文字列が出てくる。Vivadoではquantizer.vにそれぞれYUV貼ればOK。
+  →quant_kaiで様子み中。
 - ./decoder/jpegtoreadmemh.c
   - JpegDecoder開発用テストベンチに食わせるデータ製作ツール．
   - Jpegを入力するとreadmemhに読ませる事ができるデータが一行32ビットの16進数テキストで出力される．
 - parameters.c
   - 4096で割るテーブル生成用のコード。ただ出すだけ。
 
-- quant_gpt
+- quant_kai
 	- quant.cが計算誤差出してる可能性があるので修正したコード。cmakeを使っているのでbuildを作ってそこでmakeする。
 
 # ワークフロー
@@ -38,7 +39,7 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
 
 
 # quant.cの使い方
-Qualityを指定してコンパイル実行するとターミナルに結果が出てくるのでそれをVivadoの.memにコピペする→quant_gptで様子見。
+Qualityを指定してコンパイル実行するとターミナルに結果が出てくるのでそれをVivadoの.memにコピペする→quant_kaiで様子見。
 
 # header.cの使い方
 QualityとHeight Widthを指定してコンパイル実行する。outputnameに指定したところに.binが出てくる。これがヘッダになっているのでVivadoのSimで生成したJpegのBitstreamと結合するとJpegになる。
