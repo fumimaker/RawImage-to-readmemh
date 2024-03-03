@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 // 標準の輝度量子化テーブル
 int luminance_quant_table[8][8] = {
@@ -24,6 +25,7 @@ int chrominance_quant_table[8][8] = {
     {99, 99, 99, 99, 99, 99, 99, 99}
 };
 
+// 量子化テーブルを調整する関数
 void adjust_quant_table(int quant_table[8][8], int quality) {
     int i, j;
     float scale_factor;
@@ -36,17 +38,10 @@ void adjust_quant_table(int quant_table[8][8], int quality) {
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++) {
             int temp = (int)((quant_table[i][j] * scale_factor + 50) / 100);
+            // 量子化係数は1から255の範囲に制限
             if (temp <= 0) temp = 1;
             if (temp > 255) temp = 255;
             quant_table[i][j] = temp;
-        }
-    }
-}
-
-void print_quant_table_in_hex_format(int quant_table[8][8], char* table_name) {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            printf("parameter Q%d_%d = 8'h%02x;\n", i + 1, j + 1, quant_table[i][j]);
         }
     }
 }
@@ -56,7 +51,7 @@ void print_quant_table(int quant_table[8][8], char* table_name) {
     printf("Adjusted %s Quantization Table:\n", table_name);
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            printf("%02x ", quant_table[i][j]);
+            printf("%4d", quant_table[i][j]);
         }
         printf("\n");
     }
@@ -72,25 +67,12 @@ int main() {
         return 1;
     }
 
-    // 輝度量子化テーブルと色差量子化テーブルを調整
     adjust_quant_table(luminance_quant_table, quality);
     adjust_quant_table(chrominance_quant_table, quality);
 
-    // 調整された量子化テーブルを16進数フォーマットで出力
-	printf("===============================\n");
-    printf("Luminance Quantization Table:\n");
-	printf("===============================\n");
-	print_quant_table(luminance_quant_table, "Y");
-	printf("\n");
-    print_quant_table_in_hex_format(luminance_quant_table, "Y");
-	printf("\n");
-	printf("\n");
-	printf("===============================\n");
-    printf("Chrominance Quantization Table:\n");
-	printf("===============================\n");
-	print_quant_table(chrominance_quant_table, "C");
-	printf("\n");
-    print_quant_table_in_hex_format(chrominance_quant_table, "C");
+    // 輝度量子化テーブルと色差量子化テーブルの両方を表示
+    print_quant_table(luminance_quant_table, "Luminance");
+    print_quant_table(chrominance_quant_table, "Chrominance");
 
     return 0;
 }

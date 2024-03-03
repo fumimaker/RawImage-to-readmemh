@@ -18,6 +18,9 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
 - parameters.c
   - 4096で割るテーブル生成用のコード。ただ出すだけ。
 
+- quant_gpt
+	- quant.cが計算誤差出してる可能性があるので修正したコード。cmakeを使っているのでbuildを作ってそこでmakeする。
+
 # ワークフロー
 1. 元の画像を用意する。
 2. 16:9など任意の比率にトリミングする(ペイント3Dなどでできる)。この時、8x8で割れる必要がある。(マクロブロックのため)
@@ -35,7 +38,7 @@ RAW画像(RGB)のバイナリを$readmemhで読めるようにバイナリテキ
 
 
 # quant.cの使い方
-Qualityを指定してコンパイル実行するとターミナルに結果が出てくるのでそれをVivadoの.memにコピペする
+Qualityを指定してコンパイル実行するとターミナルに結果が出てくるのでそれをVivadoの.memにコピペする→quant_gptで様子見。
 
 # header.cの使い方
 QualityとHeight Widthを指定してコンパイル実行する。outputnameに指定したところに.binが出てくる。これがヘッダになっているのでVivadoのSimで生成したJpegのBitstreamと結合するとJpegになる。

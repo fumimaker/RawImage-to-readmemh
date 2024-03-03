@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define QUALITY 50
+#define QUALITY 49
 
 const uint8_t DefaultQuantLuminance[8 * 8] =
     {16, 11, 10, 16, 24, 40, 51, 61,
@@ -51,23 +51,25 @@ int main(void){
     // uint8_t quality=QUALITY;
     //quality = quality < 50 ? 5000 / quality : 200 - quality * 2;
     for (int i = 0; i < 8 * 8; i++) {
-        // uint8_t lum;
-        // uint8_t chr;
+        float lum;
+        float chr;
         // uint8_t lum = (DefaultQuantLuminance[i] * quality + 50) / 100;
         // uint8_t chr = (DefaultQuantChrominance[i] * quality + 50) / 100;
         if (QUALITY < 50) {
-            quantLuminance[i] = DefaultQuantLuminance[i] * 50 / QUALITY;
-            quantChrominance[i] = DefaultQuantChrominance[i] * 50 / QUALITY;
+			lum = (int)DefaultQuantLuminance[i] * 50.0 / QUALITY;
+			chr = (int)DefaultQuantChrominance[i] * 50.0 / QUALITY;
+            // quantLuminance[i] = clamp((int)DefaultQuantLuminance[i] * 50 / QUALITY, 1, 255);
+            // quantChrominance[i] = clamp((int)DefaultQuantChrominance[i] * 50 / QUALITY, 1, 255);
         } else {
-            quantLuminance[i] = clamp(
-                (100 - QUALITY) / 50.0 * DefaultQuantLuminance[i], 1, 255);
-            quantChrominance[i] = clamp(
-                (100 - QUALITY) / 50.0 * DefaultQuantChrominance[i], 1, 255);
-            // lum = DefaultQuantLuminance[i] * (100 - QUALITY) / 50;
-            // chr = DefaultQuantChrominance[i] * (100 - QUALITY) / 50;
+            // quantLuminance[i] = clamp(
+                // (100 - QUALITY) / 50.0 * DefaultQuantLuminance[i], 1, 255);
+            // quantChrominance[i] = clamp(
+                // (100 - QUALITY) / 50.0 * DefaultQuantChrominance[i], 1, 255);
+            lum = (int)DefaultQuantLuminance[i] * (100 - QUALITY) / 50.0;
+            chr = (int)DefaultQuantChrominance[i] * (100 - QUALITY) / 50.0;
         }
-        // quantLuminance[i] = clamp(lum, 1, 255);
-        // quantChrominance[i] = clamp(chr, 1, 255);
+        quantLuminance[i] = clamp((uint8_t) lum, 1, 255);
+        quantChrominance[i] = clamp((uint8_t) chr, 1, 255);
     }
     printf("============Y Value============\n");
     for(int i=0; i<8; i++){
@@ -82,7 +84,7 @@ int main(void){
         for (int j = 0; j < 8; j++)
         {
             //printf("%02x ",quantLuminance[i * 8 + j]);
-			printf("%4d ",quantLuminance[i * 8 + j]);
+			printf("%4d",quantLuminance[i * 8 + j]);
         }
         printf("\n");
     }
@@ -102,7 +104,7 @@ int main(void){
         for (int j = 0; j < 8; j++)
         {
             // printf("%02x ", quantChrominance[i * 8 + j]);
-			printf("%4d ", quantChrominance[i * 8 + j]);
+			printf("%4d", quantChrominance[i * 8 + j]);
         }
         printf("\n");
     }
