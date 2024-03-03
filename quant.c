@@ -48,16 +48,16 @@ uint8_t clamp(int num, int min, int max){
 
 int main(void){
     printf("Hello, World!\n");
-    uint8_t quality=QUALITY;
+    // uint8_t quality=QUALITY;
     //quality = quality < 50 ? 5000 / quality : 200 - quality * 2;
     for (int i = 0; i < 8 * 8; i++) {
-        uint8_t lum;
-        uint8_t chr;
+        // uint8_t lum;
+        // uint8_t chr;
         // uint8_t lum = (DefaultQuantLuminance[i] * quality + 50) / 100;
         // uint8_t chr = (DefaultQuantChrominance[i] * quality + 50) / 100;
         if (QUALITY < 50) {
-            lum = DefaultQuantLuminance[i] * 50 / QUALITY;
-            chr = DefaultQuantChrominance[i] * 50 / QUALITY;
+            quantLuminance[i] = DefaultQuantLuminance[i] * 50 / QUALITY;
+            quantChrominance[i] = DefaultQuantChrominance[i] * 50 / QUALITY;
         } else {
             quantLuminance[i] = clamp(
                 (100 - QUALITY) / 50.0 * DefaultQuantLuminance[i], 1, 255);
@@ -81,7 +81,8 @@ int main(void){
     {
         for (int j = 0; j < 8; j++)
         {
-            printf("%02x ",quantLuminance[i * 8 + j]);
+            //printf("%02x ",quantLuminance[i * 8 + j]);
+			printf("%4d ",quantLuminance[i * 8 + j]);
         }
         printf("\n");
     }
@@ -100,7 +101,8 @@ int main(void){
     {
         for (int j = 0; j < 8; j++)
         {
-            printf("%02x ", quantChrominance[i * 8 + j]);
+            // printf("%02x ", quantChrominance[i * 8 + j]);
+			printf("%4d ", quantChrominance[i * 8 + j]);
         }
         printf("\n");
     }

@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project( quant_gpt )
+# find_package( OpenCV REQUIRED )
+# include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( quant_gpt quant_gpt.c)
+target_compile_options(quant_gpt PUBLIC -Wall)
+set(CMAKE_BUILD_TYPE Debug)
