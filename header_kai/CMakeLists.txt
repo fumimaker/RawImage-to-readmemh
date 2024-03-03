@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project( header_kai )
+# find_package( OpenCV REQUIRED )
+# include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( header_kai header_kai.c)
+target_compile_options(header_kai PUBLIC -Wall)
+set(CMAKE_BUILD_TYPE Debug)
