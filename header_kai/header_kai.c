@@ -69,7 +69,7 @@ const unsigned char EOI []={0xFF,0xD9};
 uint8_t Spectral[3] = {0, 0x3f, 0};
 
 
-const char outputname[] = "Q30header20240303.bin";
+// const char outputname[] = "Q30header20240303.bin";
 FILE *outfp;
 
 // unsigned char DHT_Table[432] = {
@@ -263,11 +263,6 @@ void print_quant_table(int quant_table[8][8], char* table_name) {
 }
 
 int main(void) {
-    outfp = fopen(outputname, "w");
-    if (outfp == NULL) {
-        printf("no file.\n");
-        return -1;
-    }
 	int quality;
 	printf("header generator kai\n");
     printf("Enter the quality factor (1-100): ");
@@ -276,6 +271,16 @@ int main(void) {
     if (quality < 1 || quality > 100) {
         printf("Quality factor must be between 1 and 100.\n");
         return 1;
+    }
+
+	char outputfilename[256];
+	printf("Enter the output header file name: ");
+    scanf("%s", outputfilename);
+
+	outfp = fopen(outputfilename, "w");
+    if (outfp == NULL) {
+        printf("no file.\n");
+        return -1;
     }
 
 	adjust_quant_table(luminance_quant_table, quality);
@@ -369,8 +374,8 @@ int main(void) {
     printf("quality:%d\n", quality);
     printf("output end.\n\n");
 
-    unsigned char str[256];
-    sprintf(str, "output file = %s \n", outputname);
+    char str[512];
+    sprintf(str, "output file = %s \n", outputfilename);
     printf("%s", str);
 
     fclose(outfp);
